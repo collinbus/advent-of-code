@@ -11,7 +11,9 @@ func ReadInput(path string) []string {
 	if err != nil {
 		log.Fatalf("failed to open file: %s", err)
 	}
-	defer file.Close()
+	defer func(file *os.File) {
+		_ = file.Close()
+	}(file)
 	lines := make([]string, 0)
 
 	// Create a new Scanner for the file
