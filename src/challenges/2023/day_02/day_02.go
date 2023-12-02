@@ -1,6 +1,7 @@
 package day_02
 
 import (
+	"math"
 	"regexp"
 	"strconv"
 	"strings"
@@ -21,6 +22,7 @@ func Day2Part1(input []string) int {
 	reds := 12
 	greens := 13
 	blues := 14
+
 	sumIds := 0
 	for _, line := range input {
 		game := parseGame(line)
@@ -44,6 +46,24 @@ func Day2Part1(input []string) int {
 		}
 	}
 	return sumIds
+}
+
+func Day2Part2(input []string) int {
+	sumPowers := 0
+	for _, line := range input {
+		minReds := 0
+		minGreens := 0
+		minBlues := 0
+
+		game := parseGame(line)
+		for _, round := range game.rounds {
+			minReds = int(math.Max(float64(minReds), float64(round.red)))
+			minGreens = int(math.Max(float64(minGreens), float64(round.green)))
+			minBlues = int(math.Max(float64(minBlues), float64(round.blue)))
+		}
+		sumPowers += minReds * minGreens * minBlues
+	}
+	return sumPowers
 }
 
 func parseGame(input string) *Game {
