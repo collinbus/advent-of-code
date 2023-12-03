@@ -10,6 +10,10 @@ type Position struct {
 	y int
 }
 
+func NewPosition(x int, y int) *Position {
+	return &Position{x: x, y: y}
+}
+
 func Day3Part1(input []string) int {
 	sum := 0
 	for y := 0; y < len(input); y++ {
@@ -86,10 +90,7 @@ func readNumber(input []string, x int, y int, visited map[string]int) int {
 	current := input[y][x]
 	for isNumber(current) {
 		numberVal += string(input[y][x])
-		visited[asString(&Position{
-			x: x,
-			y: y,
-		})] = 1
+		visited[asString(NewPosition(x, y))] = 1
 		x++
 		if x == len(input[y]) {
 			break
@@ -104,54 +105,30 @@ func getIndicesToExtract(input []string, x int, y int) []*Position {
 	indicesToExtract := make([]*Position, 0)
 	//check horizontal
 	if isNumber(input[y][x-1]) {
-		indicesToExtract = append(indicesToExtract, &Position{
-			x: x - 1,
-			y: y,
-		})
+		indicesToExtract = append(indicesToExtract, NewPosition(x-1, y))
 	}
 	if isNumber(input[y][x+1]) {
-		indicesToExtract = append(indicesToExtract, &Position{
-			x: x + 1,
-			y: y,
-		})
+		indicesToExtract = append(indicesToExtract, NewPosition(x+1, y))
 	}
 	// check upper
 	if isNumber(input[y-1][x]) {
-		indicesToExtract = append(indicesToExtract, &Position{
-			x: x,
-			y: y - 1,
-		})
+		indicesToExtract = append(indicesToExtract, NewPosition(x, y-1))
 	}
 	if isNumber(input[y-1][x-1]) {
-		indicesToExtract = append(indicesToExtract, &Position{
-			x: x - 1,
-			y: y - 1,
-		})
+		indicesToExtract = append(indicesToExtract, NewPosition(x-1, y-1))
 	}
 	if isNumber(input[y-1][x+1]) {
-		indicesToExtract = append(indicesToExtract, &Position{
-			x: x + 1,
-			y: y - 1,
-		})
+		indicesToExtract = append(indicesToExtract, NewPosition(x+1, y-1))
 	}
 	// check lower
 	if isNumber(input[y+1][x]) {
-		indicesToExtract = append(indicesToExtract, &Position{
-			x: x,
-			y: y + 1,
-		})
+		indicesToExtract = append(indicesToExtract, NewPosition(x, y+1))
 	}
 	if isNumber(input[y+1][x-1]) {
-		indicesToExtract = append(indicesToExtract, &Position{
-			x: x - 1,
-			y: y + 1,
-		})
+		indicesToExtract = append(indicesToExtract, NewPosition(x-1, y+1))
 	}
 	if isNumber(input[y+1][x+1]) {
-		indicesToExtract = append(indicesToExtract, &Position{
-			x: x + 1,
-			y: y + 1,
-		})
+		indicesToExtract = append(indicesToExtract, NewPosition(x+1, y+1))
 	}
 	return indicesToExtract
 }
