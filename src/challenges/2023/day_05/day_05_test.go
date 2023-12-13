@@ -13,3 +13,11 @@ func TestDay5Part1(t *testing.T) {
 
 	fmt.Println(sum)
 }
+
+func TestDay5Part2(t *testing.T) {
+	input := helpers.ReadInput("input.txt")
+
+	sum := Day5Part2(input)
+
+	fmt.Println(sum)
+}

@@ -50,6 +50,17 @@ func Day5Part1(input []string) int {
 	return seeds[0]
 }
 
+func Day5Part2(input []string) int {
+	maps := readMaps(input[2:])
+	currentMap := maps[len(maps)-1]
+	sort.Slice(currentMap.ranges, func(i, j int) bool {
+		iRange := currentMap.ranges[i]
+		jRange := currentMap.ranges[j]
+		return (iRange.destinationStart + iRange.length) < (jRange.destinationStart + jRange.length)
+	})
+	return currentMap.ranges[0].destinationStart + currentMap.ranges[0].length
+}
+
 func readMaps(input []string) []*GardenMap {
 	maps := make([]*GardenMap, 0)
 	var ranges []*Range
