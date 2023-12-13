@@ -3,6 +3,7 @@ package day_06
 import (
 	"regexp"
 	"strconv"
+	"strings"
 )
 
 func Day6Part1(input []string) int {
@@ -13,6 +14,12 @@ func Day6Part1(input []string) int {
 		numberOfWays *= getNumberOfWays(times[i], distances[i])
 	}
 	return numberOfWays
+}
+
+func Day6Part2(input []string) int {
+	time := readInt(strings.ReplaceAll(input[0], " ", ""))
+	distance := readInt(strings.ReplaceAll(input[1], " ", ""))
+	return getNumberOfWays(time, distance)
 }
 
 func getNumberOfWays(time int, distance int) int {
@@ -35,4 +42,11 @@ func readNumbers(input string) []int {
 		numbers[i] = number
 	}
 	return numbers
+}
+
+func readInt(input string) int {
+	numberRegex := regexp.MustCompile("[0-9]+")
+	numberAsString := numberRegex.FindString(input)
+	number, _ := strconv.Atoi(numberAsString)
+	return number
 }
